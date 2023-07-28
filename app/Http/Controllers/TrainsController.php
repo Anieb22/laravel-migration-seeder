@@ -10,7 +10,7 @@ class TrainsController extends Controller
 {
     public function index(){
         $now = date ('Y-m-d', strtotime(now()));
-        $trains = Train::where('data_partenza', '>=', $now)->get();
+        $trains = Train::all();
         return view('home', compact('trains'));
     }
 }

@@ -19,13 +19,44 @@
     <div class="container">
         <div class="row">
             <div class="col-12">
-                @foreach($trains as $train)
-                    {{$train -> stazione_di_partenza}} - {{$train -> orario_di_partenza}} - {{$train ->stazione_di_arrivo}} - {{$train -> orario_di_arrivo}} - 
-                    @if($train->in_orario)
-                        Sì
-                    @else
-                        No
-                    @endif
+                <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">Azienda</th>
+                        <th scope="col">Stazione di Partenza</th>
+                        <th scope="col">Orario di Partenza</th>
+                        <th scope="col">Stazione di arrivo</th>
+                        <th scope="col">Orario di arrivo</th>
+                        <th scope="col">Codice Treno</th>
+                        <th scope="col">Ritardo</th>
+                      </tr>
+                    </thead>
+                    @foreach($trains as $train)
+                    <tbody>
+                      <tr>
+                        <th scope="row">{{$train -> azienda}}</th>
+                        <td>{{$train -> stazione_di_partenza}}</td>
+                        <td>{{$train -> orario_di_partenza}}</td>
+                        <td>{{$train ->stazione_di_arrivo}}</td>
+                        <td>{{$train -> orario_di_arrivo}}</td>
+                        <td>{{$train -> n_carrozza}}</td>
+                        <td>
+                            @if($train->in_orario)
+                                in orario
+                            @else
+                                ritardo di {{$train->tempo_ritardo}} minuti
+                            @endif
+                        </td>
+                        <td>
+                            @if($train->in_orario)
+                                In Arrivo
+                            @elseif($train->tempo_ritardo >= 200)
+                                Cancellato
+                            @else
+                                In Arrivo
+                            @endif
+                        </td>
+                      </tr>                    
                 @endforeach
             </div>
         </div>
